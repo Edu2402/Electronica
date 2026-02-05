@@ -780,6 +780,160 @@ input.disabled, select.disabled, textarea.disabled {
     line-height: 1.3;
 }
 
+/* ===== ESTILOS PARA TEXTAREA MÁS ANCHOS ===== */
+
+/* Hacer los textarea más anchos y con mejor apariencia */
+.form-group.full-width {
+    flex: 1 0 100% !important;
+    width: 100% !important;
+}
+
+.form-group.full-width textarea {
+    width: 100% !important;
+    min-height: 120px;
+    resize: vertical;
+    padding: 15px;
+    font-size: 15px;
+    line-height: 1.6;
+    border: 2px solid #e1e1e1;
+    border-radius: 8px;
+    background-color: #fafafa;
+    transition: all 0.3s ease;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Específicamente para la descripción de reportes */
+#descripcion, 
+textarea[name="descripcion"] {
+    width: 100% !important;
+    min-height: 140px;
+    font-size: 15px;
+    line-height: 1.6;
+    padding: 15px;
+    border: 2px solid #e1e1e1;
+    border-radius: 8px;
+    background-color: #fafafa;
+    transition: all 0.3s ease;
+}
+
+#descripcion:focus, 
+textarea[name="descripcion"]:focus {
+    border-color: #41110dff;
+    background-color: #fff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(65, 17, 13, 0.1);
+}
+
+/* Para el textarea de acción en reportes */
+#accion, 
+textarea[name="accion"] {
+    width: 100% !important;
+    min-height: 100px;
+    font-size: 15px;
+    line-height: 1.6;
+    padding: 15px;
+    border: 2px solid #e1e1e1;
+    border-radius: 8px;
+    background-color: #fafafa;
+    transition: all 0.3s ease;
+}
+
+#accion:focus, 
+textarea[name="accion"]:focus {
+    border-color: #41110dff;
+    background-color: #fff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(65, 17, 13, 0.1);
+}
+
+/* Para el textarea de descripción en insumos */
+#descripcion[name="descripcion"] {
+    width: 100% !important;
+    min-height: 120px;
+}
+
+/* Mejoras generales para todos los textarea del formulario */
+.registro-form textarea {
+    width: 100% !important;
+    min-height: 100px;
+    resize: vertical;
+    padding: 12px 15px;
+    font-size: 14px;
+    line-height: 1.5;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #fafafa;
+    transition: all 0.3s ease;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.registro-form textarea:focus {
+    border-color: #41110dff;
+    background-color: #fff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(65, 17, 13, 0.1);
+}
+
+/* Placeholders con mejor estilo */
+.registro-form textarea::placeholder {
+    color: #999;
+    font-style: italic;
+}
+
+/* Badges de estatus para reportes */
+.estatus-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.estatus-badge.pendiente {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.estatus-badge.en-revisión {
+    background-color: #cce7ff;
+    color: #004085;
+}
+
+.estatus-badge.resuelto {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+/* Responsive para textarea */
+@media (min-width: 1200px) {
+    .form-group.full-width textarea {
+        min-height: 140px;
+    }
+    
+    #descripcion, 
+    textarea[name="descripcion"] {
+        min-height: 160px;
+    }
+}
+
+@media (max-width: 768px) {
+    .form-group.full-width textarea {
+        min-height: 100px;
+        font-size: 16px; /* Mejor para móviles */
+    }
+    
+    #descripcion, 
+    textarea[name="descripcion"] {
+        min-height: 120px;
+    }
+    
+    #accion, 
+    textarea[name="accion"] {
+        min-height: 80px;
+    }
+}
+
 /* Responsive Styles */
 @media (max-width: 992px) {
     .dashboard-sections {

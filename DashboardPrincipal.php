@@ -7,6 +7,12 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     exit();
 }
 
+// DEPURACIÓN: Verificar que tenemos todos los datos necesarios
+if (!isset($_SESSION['idPERSONAS']) && isset($_SESSION['id_persona'])) {
+    // Sincronizar id_persona con idPERSONAS si es necesario
+    $_SESSION['idPERSONAS'] = $_SESSION['id_persona'];
+}
+
 // Redirigir según el rol
 switch ($_SESSION['rol']) {
     case 'alumno':

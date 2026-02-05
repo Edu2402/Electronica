@@ -565,12 +565,6 @@ if ($resultado_laboratorios && $resultado_laboratorios->num_rows > 0) {
                             <span>Dashboard</span>
                         </a>
                     </li>
-                    <li class="nav-item <?php echo $pagina_actual == 'gestion' ? 'active' : ''; ?>">
-                        <a href="GestionMaestro.php?pagina=gestion">
-                            <i class="fas fa-user-graduate"></i>
-                            <span>Gestión Alumnos</span>
-                        </a>
-                    </li>
                     <li class="nav-item <?php echo $pagina_actual == 'solicitud_insumos' ? 'active' : ''; ?>">
                         <a href="GestionMaestro.php?solicitud_insumos=1">
                             <i class="fas fa-box-open"></i>

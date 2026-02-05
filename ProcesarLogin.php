@@ -26,12 +26,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['username']) && isset($
         $usuario = $resultado->fetch_assoc();
         
         if ($pin_limpio === $usuario['PIN']) {
-            // Credenciales correctas
+            // Credenciales correctas - GUARDAR TODOS LOS DATOS NECESARIOS
             $_SESSION['numero_control'] = $numero_control_limpio;
             $_SESSION['loggedin'] = true;
             $_SESSION['rol'] = $usuario['ROL'];
             $_SESSION['nombre'] = $usuario['NOMBRE'] . ' ' . $usuario['PATERNO'] . ' ' . $usuario['MATERNO'];
             $_SESSION['id_persona'] = $usuario['idPERSONAS'];
+            
+            // ESTAS SON LAS LÍNEAS CRÍTICAS QUE FALTAN:
+            $_SESSION['idPERSONAS'] = $usuario['idPERSONAS']; // ← ESTA ES LA MÁS IMPORTANTE
+            $_SESSION['id_usuario'] = $usuario['idPERSONAS']; // ← Y ESTA TAMBIÉN
+            $_SESSION['correo'] = $usuario['CORREO']; // ← PARA RESPALDO
             
             echo json_encode([
                 'success' => true,
