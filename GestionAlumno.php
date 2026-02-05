@@ -5,8 +5,8 @@ ini_set('display_startup_errors', 1);
 
 session_start();
 
-// Verificar si el usuario ha iniciado sesión y es un maestro
-if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || $_SESSION['rol'] !== 'maestro') {
+// Verificar si el usuario ha iniciado sesión y es un alumno
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || $_SESSION['rol'] !== 'alumno') {
     header("Location: index.php");
     exit();
 }
@@ -258,7 +258,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !isset($_POST['solicitar_insumos']))
                             $id_edicion = 0;
                             
                             // Redirigir para limpiar el POST
-                            header("Location: GestionMaestro.php?pagina=gestion&success=1");
+                            header("Location: GestionAlumno.php?pagina=gestion&success=1");
                             exit();
                         } else {
                             throw new Exception("Error al actualizar usuario: " . $conexion->error);
@@ -284,7 +284,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !isset($_POST['solicitar_insumos']))
                             
                             // LIMPIAR DATOS DESPUÉS DE REGISTRO EXITOSO
                             // Redirigir para limpiar el POST y mostrar formulario vacío
-                            header("Location: GestionMaestro.php?pagina=gestion&success=1");
+                            header("Location: GestionAlumno.php?pagina=gestion&success=1");
                             exit();
                         } else {
                             throw new Exception("Error al registrar usuario: " . $conexion->error);
@@ -553,20 +553,20 @@ if ($resultado_laboratorios && $resultado_laboratorios->num_rows > 0) {
                 </div>
                 <div class="user-details">
                     <h3><?php echo htmlspecialchars($_SESSION['nombre']); ?></h3>
-                    <p>Maestro</p>
+                    <p>Alumno</p>
                 </div>
             </div>
             
             <nav class="sidebar-nav">
                 <ul>
                     <li class="nav-item <?php echo $pagina_actual == 'dashboard' ? 'active' : ''; ?>">
-                        <a href="GestionMaestro.php?pagina=dashboard">
+                        <a href="GestionAlumno.php?pagina=dashboard">
                             <i class="fas fa-home"></i>
                             <span>Dashboard</span>
                         </a>
                     </li>
                     <li class="nav-item <?php echo $pagina_actual == 'solicitud_insumos' ? 'active' : ''; ?>">
-                        <a href="GestionMaestro.php?solicitud_insumos=1">
+                        <a href="GestionAlumno.php?solicitud_insumos=1">
                             <i class="fas fa-box-open"></i>
                             <span>Pedir Insumos</span>
                         </a>
@@ -678,15 +678,15 @@ if ($resultado_laboratorios && $resultado_laboratorios->num_rows > 0) {
                         <div class="section quick-actions">
                             <h2>Acciones Rápidas</h2>
                             <div class="action-buttons">
-                                <a href="GestionMaestro.php?pagina=gestion" class="action-btn">
+                                <a href="GestionAlumno.php?pagina=gestion" class="action-btn">
                                     <i class="fas fa-user-graduate"></i>
                                     <span>Gestionar Alumnos</span>
                                 </a>
-                                <a href="GestionMaestro.php?pagina=gestion" class="action-btn">
+                                <a href="GestionAlumno.php?pagina=gestion" class="action-btn">
                                     <i class="fas fa-user-plus"></i>
                                     <span>Registrar Alumno</span>
                                 </a>
-                                <a href="GestionMaestro.php?solicitud_insumos=1" class="action-btn">
+                                <a href="GestionAlumno.php?solicitud_insumos=1" class="action-btn">
                                     <i class="fas fa-box-open"></i>
                                     <span>Solicitar Insumos</span>
                                 </a>
@@ -700,7 +700,7 @@ if ($resultado_laboratorios && $resultado_laboratorios->num_rows > 0) {
                         <div class="form-section">
                             <h2><?php echo $modo_edicion ? 'Editar Alumno' : 'Registrar Nuevo Alumno'; ?></h2>
                             
-                            <form method="POST" action="GestionMaestro.php?pagina=gestion<?php echo $modo_edicion ? '&editar=' . $id_edicion : ''; ?>" class="registro-form">
+                            <form method="POST" action="GestionAlumno.php?pagina=gestion<?php echo $modo_edicion ? '&editar=' . $id_edicion : ''; ?>" class="registro-form">
                                 <?php if ($modo_edicion): ?>
                                     <input type="hidden" name="id" value="<?php echo $id_edicion; ?>">
                                 <?php endif; ?>
@@ -834,7 +834,7 @@ if ($resultado_laboratorios && $resultado_laboratorios->num_rows > 0) {
                                     </button>
                                     
                                     <?php if ($modo_edicion): ?>
-                                        <a href="GestionMaestro.php?pagina=gestion" class="btn-cancelar">Cancelar</a>
+                                        <a href="GestionAlumno.php?pagina=gestion" class="btn-cancelar">Cancelar</a>
                                     <?php endif; ?>
                                 </div>
                             </form>
@@ -879,10 +879,10 @@ if ($resultado_laboratorios && $resultado_laboratorios->num_rows > 0) {
                                                 <td><?php echo isset($fila['CARRERA']) ? htmlspecialchars($fila['CARRERA']) : 'N/A'; ?></td>
                                                 <td><?php echo date('d/m/Y', strtotime($fila['FECHA_CREACION'])); ?></td>
                                                 <td class="actions">
-                                                    <a href="GestionMaestro.php?pagina=gestion&editar=<?php echo $fila['idPERSONAS']; ?>" class="btn-action edit" title="Editar">
+                                                    <a href="GestionAlumno.php?pagina=gestion&editar=<?php echo $fila['idPERSONAS']; ?>" class="btn-action edit" title="Editar">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
-                                                    <a href="GestionMaestro.php?pagina=gestion&eliminar=<?php echo $fila['idPERSONAS']; ?>" class="btn-action delete" title="Dar de baja" onclick="return confirm('¿Estás seguro de dar de baja a este alumno?')">
+                                                    <a href="GestionAlumno.php?pagina=gestion&eliminar=<?php echo $fila['idPERSONAS']; ?>" class="btn-action delete" title="Dar de baja" onclick="return confirm('¿Estás seguro de dar de baja a este alumno?')">
                                                         <i class="fas fa-user-times"></i>
                                                     </a>
                                                 </td>
@@ -912,7 +912,7 @@ if ($resultado_laboratorios && $resultado_laboratorios->num_rows > 0) {
                                     $resultado_laboratorios = $conexion->query($sql_laboratorios);
                                     ?>
                                     
-                                    <form method="POST" action="GestionMaestro.php?pagina=solicitud_insumos" id="formSolicitudInsumos">
+                                    <form method="POST" action="GestionAlumno.php?pagina=solicitud_insumos" id="formSolicitudInsumos">
                                         <div class="form-row">
                                             <div class="form-group">
                                                 <label for="laboratorio">Laboratorio *</label>
