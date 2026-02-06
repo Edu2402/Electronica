@@ -21,6 +21,52 @@ $modo_edicion_lab = false;
 $modo_edicion_insumo = false;
 $pagina_actual = isset($_GET['pagina']) ? $_GET['pagina'] : 'dashboard';
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    
+    $tipo_incidencia = $_POST['tipo_incidencia'] ?? '';
+    $estatus = $_POST['estatus'];
+    $hora = $_POST['hora_incidente'];
+    $elabora = $_POST['elabora'] ?? '';
+    $reporta = $_POST['reporta'] ?? '';
+    $responsable = $_POST['responsable'];
+    $descripcion = $_POST['descripcion'];
+    $accion = $_POST['accion'];
+
+    if (empty($tipo_incidencia)) {
+    die("Error: Tipo de incidencia no enviado");
+}
+
+    $sql = "INSERT INTO reportes
+    (tipo_incidencia, elabora, reporta, responsable, descripcion, estatus, fecha, accion)
+    VALUES (?, ?, ?, ?, ?, ?, NOW(), ?)";
+
+
+    $stmt = $conexion->prepare($sql);
+    
+    $stmt->bind_param(
+    "sssssss",
+    $tipo_incidencia,
+    $elabora,
+    $reporta,
+    $responsable,
+    $descripcion,
+    $estatus,
+    $accion
+    );
+
+    if ($stmt->execute()) {
+
+        include("registrarActividad.php");
+        registrarActividad($conexion, "Nuevo reporte registrado");
+
+         $mensajeExito = "✅ El reporte se ha agregado correctamente";
+
+        //header("Location: GestionTrabajador.php");
+        exit;
+    }
+}
+
 // Procesar logout
 if (isset($_GET['logout'])) {
     session_destroy();
@@ -503,6 +549,8 @@ if (!empty($error) && $id_insumo > 0 && $modo_edicion_insumo) {
         $datos_insumo = $resultado->fetch_assoc();
     }
 }
+
+
 
 // Procesar formulario de registro de reportes
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['form_type']) && $_POST['form_type'] == 'reporte') {
